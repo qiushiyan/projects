@@ -1,0 +1,60 @@
+---
+import MainHead from "@components/MainHead.astro";
+import Nav from "@components/Nav.astro";
+import PortfolioPreview from "@components/ProjectPreview.astro";
+import type { Project, FrontMatter } from "../types";
+
+const allProjects = (await Astro.glob<FrontMatter>("./projects/**/*.mdx")).sort(
+  (a, b) =>
+    new Date(b.frontmatter.date).valueOf() -
+    new Date(a.frontmatter.date).valueOf()
+);
+
+const groups: { [key: string]: Project[] } = {
+  "Data Science": [],
+  Software: [],
+};
+
+allProjects.forEach((project) => {
+  const group = project.frontmatter.group || project.url!.split("/")[2];
+  if (Object.keys(groups).includes(group)) {
+    groups[group].push(project);
+  } else {
+    groups["Others"].push(project);
+  }
+});
+---
+
+<html lang="en">
+  <head>
+    <MainHead
+      title="Qiushi Yan's projects"
+      description="Qiushi Yan's Projects"
+    />
+  </head>
+  <body class="bg-slate-900 text-gray-100">
+    <Nav />
+    <div class="wrapper">
+      {
+        Object.keys(groups).map((group) => {
+          const projects = groups[group];
+          return (
+            <div class="project-group">
+              {group && (
+                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 m-8">
+                  {group} Projects
+                </h2>
+              )}
+              <div class="grid grid-cols-2 gap-10">
+                {projects.map((project) => (
+                  <PortfolioPreview project={project} />
+                ))}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+    );
+  </body>
+</html>

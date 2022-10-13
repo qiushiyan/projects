@@ -1,0 +1,31 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+---
+
+<nav class="h-screen top-20 sticky p-4">
+  {
+    (
+      <ul>
+        {headings.map((heading) => (
+          <li>
+            <a href={`#${heading.slug}`} class="sidebar-link">
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</nav>
+
+<style>
+  li {
+    border-bottom: 1px solid var(--color-gray-300);
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+layout: ../../../layouts/Project.astro
+title: Airbnb listings in NYC
+client: Self
+date: 2021-12-04 00:00:00
+image: /assets/images/nyclodging.png
+group: Data Science
+description: |
+  A shiny app (also an R package) to explore Airbnb listings in NYC. Users can select room location, enter housing descriptions, and get price predictions. If you are into maps, there is also a spatial section analyzing the housing's spatial pattern. There are also a gallery of interactive visualizations for EDA.
+tags:
+  - Shiny
+  - Spatial
+  - Text
+link: https://qiushiyan.shinyapps.io/nyclodging/
+---
+
+## Motivation
+
+I built this app to learn the [golem](https://github.com/ThinkR-open/golem) framework, which allow you to develop Shiny apps as an R package. This approach makes distribution really easy, anyone wish to use the app can just install the package and let R's amazing package system handles all the dependencies. You can install the app from Github via:
+
+```r
+remotes::install_github("qiushiyan/nyclodging")
+nyclodging::run_app()
+```
+
+I also want to learn how to containerize R projects with Docker, and luckily that was really easy with [renv](https://rstudio.github.io/renv/articles/docker.html). You can run the app's docker image via:
+
+```bash
+docker pull qiushiyan/nyclodging
+docker run -p 8080:80 --rm qiushiyan/nyclodging
+```
+
+## The Data And App
+
+This application aims to explore and visualize Airbnb listings in NYC in 2019.The dataset contains measurements on host, room description, room type, reviews, availability, geographic location, etc.
+
+```r
+nyclodging::listings
+#> # A tibble: 48,895 × 15
+#>    list_id list_description     host_id host_name neighbourhood_g… neighbourhood
+#>      <dbl> <chr>                  <dbl> <chr>     <chr>            <chr>
+#>  1    2539 Clean & quiet apt h…    2787 John      Brooklyn         Kensington
+#>  2    2595 Skylit Midtown Cast…    2845 Jennifer  Manhattan        Midtown
+#>  3    3647 THE VILLAGE OF HARL…    4632 Elisabeth Manhattan        Harlem
+#>  4    3831 Cozy Entire Floor o…    4869 LisaRoxa… Brooklyn         Clinton Hill
+#>  5    5022 Entire Apt: Spaciou…    7192 Laura     Manhattan        East Harlem
+#>  6    5099 Large Cozy 1 BR Apa…    7322 Chris     Manhattan        Murray Hill
+#>  7    5121 BlissArtsSpace!         7356 Garon     Brooklyn         Bedford-Stuy…
+#>  8    5178 Large Furnished Roo…    8967 Shunichi  Manhattan        Hell's Kitch…
+#>  9    5203 Cozy Clean Guest Ro…    7490 MaryEllen Manhattan        Upper West S…
+#> 10    5238 Cute & Cozy Lower E…    7549 Ben       Manhattan        Chinatown
+#> # … with 48,885 more rows, and 9 more variables: lat <dbl>, lon <dbl>,
+#> #   room_type <chr>, price <dbl>, min_nights <dbl>, reviews <dbl>,
+#> #   last_review_date <date>, reviews_per_month <dbl>, available_days <dbl>
+```
+
+There are variety of topics to explore: spatial analysis of housing distrituions, text analysis of room descriptions, and various statistical hypothesis tests related to price. I decide to divide the app into the following sections:
+
+- Spatial overview of pricing patterns, down to tracts
+
+- Building a multilevel classification model for price ranges based on description and location
+
+- Statistical testing of bivariate relationship
+
+- Showcase of other miscellaneous interactive plots
+
+You are welcome to visit the link above to explore the app a bit. But I want to mention one cool yet hidden feature. On one page you can create and customize plots by adjusting the control panel on the left, such as changing the variable for the x and y axis, the color palette or the measurement scale. If you click on the finished graph, you will get a copy of the R code that generates it :)
+
+![](/assets/images/nycloding-plot.png)

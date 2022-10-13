@@ -1,0 +1,72 @@
+---
+layout: ../../../layouts/Project.astro
+title: Q Porgramming Language
+client: Self
+date: 2022-10-10 00:00:00
+image: /assets/images/qlang.png
+link: https://github.com/qiushiyan/qlang
+description: |
+  Someday I decided to make my own programming language for data science that combines many nice features of R and Python. It should have no weird syntax, and be vectorized and functional in nature.
+group: Software
+tags:
+  - Go
+---
+
+## Q Programming Language
+
+I use both R and Python day to day. While they are both great tools, there has always been something I wish I could do better.
+
+Some are just syntactical ones, for example there is no literal syntax in R to create a vector or list, we have to use the `c()` and `list()` function. But in Python you can brackets `[]` and bracelets `{}`.
+
+Some are more than the surface. One of R's biggest strength is its vectorization mechanism. Elementwise arithmetics are supported out of the box. In Python one either have to use for loop and a third party library like `numpy` to do "broadcasting". Data science involves so many vector or matrix-based computations, so the language should be vectorized natively,
+
+Functions should be first-class citizens, which means you can pass them as arguments to other functions, return them from other functions, and bind just like you would do with strings and numbers (Sorry Python but no `def` keyword). And most importantly, why would anyone not love pipes and implicit returns :)
+
+I decide to call my language Q (the letter before R's predecessor S ) and use Go as the host language to build Q's interpreter. For one thing I am interested in people's compliments on Go's simplicity and performance. For another, there is already a popular book on the topic called [Writing An Interpreter In Go](https://interpreterbook.com/).
+
+So after some weeks I crafted a language that can run a small program like this
+
+```
+# primitive operatiosn
+1 + 3
+"Hello" + " World"
+
+
+# vectorization and recycling
+[1, 2, 3] + [4, 5, 6]
+[1, 2, 3] + 4
+
+# literal syntax for creating vectors and maps
+data = [
+  {name: "Ross",   job: "Paleontology"},
+  {name: "Monoca", job: "Chef"}
+]
+
+# control flows
+filter = fn(x, f) {
+  result = []
+  for (i in 1:len(x)) {
+    if (f(x[i])) {
+      result = append(result, x[i])
+    }
+  }
+  result
+}
+
+# functional programming
+data |> filter(fn(x) x["job"] == "Chef")
+
+# closures, keyword and default arguments
+make_adder = fn(x, y = 1) {
+  fn(x) x + y
+}
+adder = add(y = 10)
+adder(1)
+
+# builtin functions
+nums <- as_vector(1:10)
+# boolean indexing
+nums[nums > 5]
+```
+
+Things could be extended to make Q be able to do some real data science tasks, for example to include a data frame interface based on [gota](https://github.com/go-gota/gota). But for now I'll stop here and leave it as a toy language. If I pick up the second book [Writing A Compiler In Go](https://compilerbook.com/) later I will happily add more features.

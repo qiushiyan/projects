@@ -1,0 +1,36 @@
+---
+type Props = {
+  tag: string;
+};
+const { tag } = Astro.props;
+---
+
+<div class="tag" data-tags={tag}>
+  {tag}
+</div>
+
+<style>
+  .tag {
+    display: inline-block;
+    color: var(--c-yellow);
+    text-transform: uppercase;
+    margin-left: 0.5em;
+  }
+
+  .tag::before {
+    content: "#";
+  }
+
+  .tag:nth-of-type(1n) {
+    color: var(--c-green);
+  }
+  .tag:nth-of-type(2n) {
+    color: var(--c-orange);
+  }
+  .tag:nth-of-type(3n) {
+    color: var(--c-blue);
+  }
+  .tag:nth-of-type(4n) {
+    color: var(--c-pink);
+  }
+</style>
