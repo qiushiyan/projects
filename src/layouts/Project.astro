@@ -16,9 +16,9 @@ const { frontmatter, headings } = Astro.props;
   <head>
     <MainHead title={frontmatter.title} description={frontmatter.description} />
   </head>
-  <body class="bg-slate-900 text-gray-100">
+  <body class="bg-slate-900">
     <Nav />
-    <div class="project-intro grid grid-cols-2 mx-10 my-5">
+    <div class="project-intro grid grid-cols-2 mx-10 my-5 text-gray-100">
       <div>
         <h2 class="title font-extrabold text-2xl text-center">
           {frontmatter.title}
@@ -41,9 +41,9 @@ const { frontmatter, headings } = Astro.props;
             headings.length > 0 ? "grid grid-cols-4 grid-flow-col-dense" : ""
           }`}
         >
-          <div class="mdx-content col-span-3 px-10">
+          <article class="mdx-content col-span-3 px-10 prose dark:prose-invert">
             <slot />
-          </div>
+          </article>
           {headings.length > 0 && <ProjectSidebar headings={headings} />}
         </div>
       ) : (

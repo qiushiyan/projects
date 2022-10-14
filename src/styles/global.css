@@ -94,25 +94,6 @@ a {
   padding-right: 2rem;
 }
 
-.mdx-content h2 {
-  font-size: var(--f-u6);
-  margin: 1rem 0;
-}
-
-.mdx-content h2 {
-  font-size: var(--f-u5);
-  margin: 1rem 0;
-}
-
-.mdx-content h3 {
-  font-size: var(--f-u4);
-  margin: 1rem 0;
-}
-
-.mdx-content p {
-  margin: 1rem 0;
-}
-
 .mdx-content pre {
   padding: 5px 20px;
 }
