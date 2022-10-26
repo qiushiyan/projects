@@ -1,0 +1,23 @@
+---
+import ProjectLink from "./ProjectLink.astro";
+import Tag from "./Tag.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  link: string;
+  tags: string[];
+}
+const { title, description, link, tags } = Astro.props;
+---
+
+<div>
+  <h2 class="title font-extrabold text-2xl text-center">
+    {title}
+  </h2>
+  {link && <ProjectLink src={link} />}
+  <div class="tags flex justify-center align-center my-3">
+    {tags.map((tag: string) => <Tag tag={tag}>{tag}</Tag>)}
+  </div>
+  <h3 class="my-3 px-32">{description}</h3>
+</div>

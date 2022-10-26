@@ -1,12 +1,11 @@
 ---
 import Divider from "@components/Divider.astro";
-import ProjectLink from "@components/ProjectLink.astro";
-import ProjectSidebar from "@components/ProjectSidebar.astro";
-import Tag from "@components/Tag.astro";
-import type { MDXLayoutProps } from "astro";
-import type { FrontMatter } from "src/types";
 import MainHead from "@components/MainHead.astro";
 import Nav from "@components/Nav.astro";
+import ProjectIntro from "@components/ProjectIntro.astro";
+import ProjectSidebar from "@components/ProjectSidebar.astro";
+import type { MDXLayoutProps } from "astro";
+import type { FrontMatter } from "src/types";
 
 type Props = MDXLayoutProps<FrontMatter>;
 const { frontmatter, headings } = Astro.props;
@@ -18,21 +17,23 @@ const { frontmatter, headings } = Astro.props;
   </head>
   <body class="bg-slate-900">
     <Nav />
-    <div class="project-intro grid grid-cols-2 mx-10 my-5 text-gray-100">
-      <div>
-        <h2 class="title font-extrabold text-2xl text-center">
-          {frontmatter.title}
-        </h2>
-        {frontmatter.link && <ProjectLink src={frontmatter.link} />}
-        <div class="tags flex justify-center align-center my-3">
-          {frontmatter.tags.map((tag: string) => <Tag tag={tag}>{tag}</Tag>)}
+    {!!frontmatter.image && (
+        <div class="project-intro grid grid-cols-2 mx-10 my-5 text-gray-100">
+          <ProjectIntro title={frontmatter.title} description={frontmatter.description} tags = {frontmatter.tags} link={frontmatter.link} />
+          <div class="flex justify-center align-center">
+            <img class="rounded-2xl block" src={frontmatter.image} />
+          </div>
         </div>
-        <h3 class="my-3 px-32">{frontmatter.description}</h3>
-      </div>
-      <div class="flex justify-center align-center">
-        <img class="rounded-2xl block" src={frontmatter.image} />
-      </div>
-    </div>
+      )
+    }
+    {
+      !frontmatter.image &&
+      (
+        <div class = "project-intro flex justify-center mx-10 my-5 text-gray-100">
+          <ProjectIntro title={frontmatter.title} description={frontmatter.description} tags = {frontmatter.tags} link={frontmatter.link} />
+        </div>
+      )
+    }
     {
       headings.length > 0 ? (
         <Divider />

@@ -2,7 +2,7 @@
 import MainHead from "@components/MainHead.astro";
 import Nav from "@components/Nav.astro";
 import PortfolioPreview from "@components/ProjectPreview.astro";
-import type { Project, FrontMatter } from "../types";
+import type { FrontMatter,Project } from "../types";
 
 const allProjects = (await Astro.glob<FrontMatter>("./projects/**/*.mdx")).sort(
   (a, b) =>
@@ -25,7 +25,7 @@ const projectGroups: {[key: string]: ProjectGroup} = {
     "description": "Projects involving data analysis and machine learning, typically written in R or Python. Presented as a minimal product as a package, web application, report or API that can be called by others.",
     "projects": []
   },
-  "Others": {
+  "Other": {
     "description": "Miscellaneous experiments",
     "projects": []
   }
@@ -38,7 +38,7 @@ allProjects.forEach((project) => {
   if (Object.keys(projectGroups).includes(group)) {
     projectGroups[group].projects.push(project);
   } else {
-    projectGroups["Others"].projects.push(project);
+    projectGroups["Other"].projects.push(project);
   }
 });
 ---
