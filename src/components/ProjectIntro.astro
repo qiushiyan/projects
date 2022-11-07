@@ -19,5 +19,5 @@ const { title, description, link, tags } = Astro.props;
   <div class="tags flex justify-center align-center my-3">
     {tags.map((tag: string) => <Tag tag={tag}>{tag}</Tag>)}
   </div>
-  <h3 class="my-3 px-32">{description}</h3>
+  <h3 class="my-3 px-32 text-center">{description}</h3>
 </div>
