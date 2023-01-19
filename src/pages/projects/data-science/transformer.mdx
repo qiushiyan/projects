@@ -1,0 +1,25 @@
+---
+layout: ../../../layouts/Project.astro
+title: Integrating transformers into IOS apps
+date: 2022-12-01 00:00:00
+image: /assets/images/transformer.png
+group: Data Science
+description: |
+  An ios app for experimenting with using transformers in ios apps, consists of a chatbot with GP3, drawing pad with vision transformer, and a question answering app with DistillBert.
+link: https://github.com/qiushiyan/ios-transformers
+tags:
+  - Transformers
+  - Swift UI
+---
+
+## Chatbot
+
+Chatbot using the traditional server-client approach, with a listening RESTful API in [`api`](https://github.com/qiushiyan/ios-transformers/tree/main/api)
+
+![](https://raw.githubusercontent.com/qiushiyan/ios-transformers/main/docs/images/gpt3.png)
+
+## Question Answering
+
+QA app with a CoreML model directly built into the bundle, converted from DistillBert. Users can first scan arbitrary text and then ask questions.
+
+![](https://raw.githubusercontent.com/qiushiyan/ios-transformers/main/docs/images/QA.png)
