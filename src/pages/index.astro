@@ -2,45 +2,36 @@
 import MainHead from "@components/MainHead.astro";
 import Nav from "@components/Nav.astro";
 import PortfolioPreview from "@components/ProjectPreview.astro";
-import type { FrontMatter,Project } from "../types";
-
-const allProjects = (await Astro.glob<FrontMatter>("./projects/**/*.mdx")).sort(
-  (a, b) =>
-    new Date(b.frontmatter.date).valueOf() -
-    new Date(a.frontmatter.date).valueOf()
-);
+import { CollectionEntry, getCollection } from "astro:content";
 
 
+type Group = "data-science" | "software" | "other"
 type ProjectGroup = {
   description: string;
-  projects: Project[];
+  projects: CollectionEntry<"project">[]
 };
+type AllProjects = Record<Group,  ProjectGroup>
 
-const projectGroups: {[key: string]: ProjectGroup} = {
-  "Software": {
+const initialAllProjects: AllProjects  =  {
+  "software": {
     "description": "General software products, most of which are web apps or small backend services.",
     "projects": []
   },
-  "Data Science": {
+  "data-science": {
     "description": "Projects involving data analysis and machine learning, typically written in R or Python. Presented as a minimal product as a package, web application, report or API that can be called by others.",
     "projects": []
   },
-  "Other": {
+  "other": {
     "description": "Miscellaneous experiments",
     "projects": []
   }
 }
 
-
-
-allProjects.forEach((project) => {
-  const group = project.frontmatter.group || project.url!.split("/")[2];
-  if (Object.keys(projectGroups).includes(group)) {
-    projectGroups[group].projects.push(project);
-  } else {
-    projectGroups["Other"].projects.push(project);
-  }
-});
+const projects = (await getCollection("project")).reduce((acc, project) => {
+  const group = project.data.group
+  acc[group]["projects"].push(project)
+  return acc;
+}, initialAllProjects);
 ---
 
 <html lang="en">
@@ -51,15 +42,15 @@ allProjects.forEach((project) => {
     <Nav />
     <div class="wrapper">
       {
-        Object.keys(projectGroups).map((group) => {
-          const projectGroup = projectGroups[group];
+        Object.keys(projects).map((group) => {
+          const projectGroup = projects[group as Group];
           return (
             <div class="project-group">
               {group && (
-                <h2 class="text-3xl font-extrabold my-4 mx-0 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 m-8">
-                  {group} Projects
+                <h2 class="text-3xl font-extrabold text-yellow-300 capitalize my-2">
+                  {group}
                 </h2>
-                <p class = "my-4 text-gray-400">{projectGroup.description}</p>
+                <p class = "text-gray-400 mb-2">{projectGroup.description}</p>
               )}
               <div class="grid grid-cols-2 gap-10">
                 {projectGroup.projects.map((project) => (

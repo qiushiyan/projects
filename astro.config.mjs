@@ -5,15 +5,15 @@ import mdx from "@astrojs/mdx";
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
+
+// https://astro.build/config
 export default defineConfig({
-  integrations: [
-    tailwind({
-      config: {
-        applyBaseStyles: true,
-      },
-    }),
-    mdx({
-      remarkPlugins: [],
-    }),
-  ],
+  site: "https://projects.qiushiyan.dev",
+  integrations: [tailwind({
+    config: {
+      applyBaseStyles: true
+    }
+  }), mdx({
+    remarkPlugins: []
+  })]
 });

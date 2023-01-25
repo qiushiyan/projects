@@ -3,12 +3,13 @@ import type { MarkdownHeading } from "astro";
 
 interface Props {
   headings: MarkdownHeading[];
+  class?: string
 }
 
 const { headings } = Astro.props;
 ---
 
-<nav class="h-screen top-20 sticky p-4">
+<nav class:list={["h-screen top-20 sticky p-4", {class: true}]}>
   {
     (
       <ul>

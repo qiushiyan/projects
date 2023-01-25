@@ -1,29 +1,30 @@
 ---
 import Tag from "@components/Tag.astro";
 import type { Project } from "../types";
+import type { CollectionEntry } from "astro:content";
 interface Props {
-  project: Project;
+  project: CollectionEntry<"project">
 }
 
-const { frontmatter, url } = Astro.props.project;
+const { data, slug } = Astro.props.project;
 ---
 
 <div
   class="card relative my-3 bg-slate-900 text-slate-900 rounded-lg border-xblue-800 border-solid border-2 shadow transition-transform hover:scale-105 hover:shadow-l"
 >
-  <div class="titleCard" style={`background-image:url(${frontmatter.image})`}>
+  <div class="titleCard" style={`background-image:url(${data.image})`}>
   </div>
   <div class="descCard">
-    <div
-      class="font-bold text-xl mb-2 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent"
+    <h2
+      class="font-bold text-xl text-white mb-2"
     >
-      {frontmatter.title}
-    </div>
-    <p class="desc">{frontmatter.description}</p>
+      {data.title}
+    </h2>
+    <p class="desc">{data.description}</p>
     <div class="tags">
-      {frontmatter.tags.map((tag: string) => <Tag tag={tag} />)}
+      {data.tags.map((tag: string) => <Tag tag={tag} />)}
     </div>
-    <a class="link" href={url}>
+    <a class="link" href={slug}>
       <span class="linkInner">View</span>
     </a>
   </div>
@@ -70,6 +71,7 @@ const { frontmatter, url } = Astro.props.project;
     line-height: 1.4;
     margin-top: 0em;
     margin-bottom: 1em;
+    color: #c4c4c4
   }
 
   .link {

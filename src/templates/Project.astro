@@ -1,0 +1,43 @@
+---
+import "../styles/project.css";
+import Divider from "@components/Divider.astro";
+import MainHead from "@components/MainHead.astro";
+import Nav from "@components/Nav.astro";
+import ProjectIntro from "@components/ProjectIntro.astro";
+import ProjectSidebar from "@components/ProjectSidebar.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"project">
+}
+const { project } = Astro.props;
+const { Content, headings } = await project.render();
+const hasHeadings = headings.length > 0
+---
+
+<html lang="en">
+  <head>
+    <MainHead title={project.data.title} description={project.data.description} />
+  </head>
+  <body class="bg-slate-900">
+    <Nav />
+        <div class="project-intro grid grid-cols-2 mx-10 my-5 text-gray-100">
+          <ProjectIntro title={project.data.title} description={project.data.description} tags = {project.data.tags} link={project.data.link} />
+          <div class="flex justify-center align-center">
+            <img class="rounded-2xl block" src={project.data.image} />
+          </div>
+        </div>
+        <Divider />
+        <article class:list = {["max-w-5xl mx-auto", {"grid grid-cols-4": hasHeadings}]}>
+          {Content && (
+            <article class:list={["prose dark:prose-invert", {"col-span-3": hasHeadings}]}>
+              <Content />
+            </article>
+          )}
+          {hasHeadings && (
+              <ProjectSidebar  headings={headings} class="col-span-1" />
+          )}
+        </article>
+
+  </body>
+</html>
