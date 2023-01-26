@@ -20,7 +20,7 @@ const hasHeadings = headings.length > 0
     <MainHead title={project.data.title} description={project.data.description} />
   </head>
   <body class="bg-slate-900">
-    <Nav />
+        <Nav />
         <div class="project-intro grid grid-cols-2 mx-10 my-5 text-gray-100">
           <ProjectIntro title={project.data.title} description={project.data.description} tags = {project.data.tags} link={project.data.link} />
           <div class="flex justify-center align-center">
@@ -28,7 +28,7 @@ const hasHeadings = headings.length > 0
           </div>
         </div>
         <Divider />
-        <article class:list = {["max-w-5xl mx-auto", {"grid grid-cols-4": hasHeadings}]}>
+        <article class:list = {["max-w-5xl mx-auto my-5", {"grid grid-cols-4": hasHeadings}]}>
           {Content && (
             <article class:list={["prose dark:prose-invert", {"col-span-3": hasHeadings}]}>
               <Content />
@@ -38,6 +38,5 @@ const hasHeadings = headings.length > 0
               <ProjectSidebar  headings={headings} class="col-span-1" />
           )}
         </article>
-
   </body>
 </html>
