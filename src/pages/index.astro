@@ -1,9 +1,7 @@
 ---
-import MainHead from "@components/MainHead.astro";
-import Nav from "@components/Nav.astro";
 import PortfolioPreview from "@components/ProjectPreview.astro";
 import { CollectionEntry, getCollection } from "astro:content";
-
+import BaseLayout from "src/layouts/BaseLayout.astro";
 
 type Group = "data-science" | "software" | "other"
 type ProjectGroup = {
@@ -34,34 +32,27 @@ const projects = (await getCollection("project")).reduce((acc, project) => {
 }, initialAllProjects);
 ---
 
-<html lang="en">
-  <head>
-    <MainHead />
-  </head>
-  <body class="bg-slate-900">
-    <Nav />
-    <div class="wrapper">
-      {
-        Object.keys(projects).map((group) => {
-          const projectGroup = projects[group as Group];
-          return (
-            <div class="project-group">
-              {group && (
-                <h2 class="text-3xl font-extrabold text-yellow-300 capitalize my-2">
-                  {group}
-                </h2>
-                <p class = "text-gray-400 mb-2">{projectGroup.description}</p>
-              )}
-              <div class="grid grid-cols-2 gap-10">
-                {projectGroup.projects.map((project) => (
-                  <PortfolioPreview project={project} />
-                ))}
-              </div>
-            </div>
-          );
-        })
-      }
-    </div>
-    );
-  </body>
-</html>
+<BaseLayout>
+<div class="all-projects">
+  {
+    Object.keys(projects).map((group) => {
+      const projectGroup = projects[group as Group];
+      return (
+        <div class="project-group">
+          {group && (
+            <h2 class="text-3xl font-extrabold text-yellow-300 capitalize my-2">
+              {group}
+            </h2>
+            <p class = "text-gray-400 mb-2">{projectGroup.description}</p>
+          )}
+          <div class="grid grid-cols-2 gap-10">
+            {projectGroup.projects.map((project) => (
+              <PortfolioPreview project={project} />
+            ))}
+          </div>
+        </div>
+      );
+    })
+  }
+</div>
+</BaseLayout>
