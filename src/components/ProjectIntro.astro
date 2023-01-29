@@ -6,8 +6,8 @@ import Tag from "./Tag.astro";
 interface Props {
   title: string;
   description: string;
-  link: string;
-  tags: string[];
+  tags?: string[];
+  link?: string;
 }
 const { title, description, link, tags } = Astro.props;
 ---
@@ -17,8 +17,14 @@ const { title, description, link, tags } = Astro.props;
     {title}
   </h2>
   {link && <ProjectLink src={link} />}
-  <div class="tags flex justify-center align-center my-3">
-    {tags.map((tag: string) => <Tag tag={tag}>{tag}</Tag>)}
-  </div>
+  {
+    tags && (
+      <div class="tags flex justify-center align-center my-3">
+        {tags.map((tag: string) => (
+          <Tag tag={tag}>{tag}</Tag>
+        ))}
+      </div>
+    )
+  }
   <h3 class="my-3 px-32 text-center">{description}</h3>
 </div>
