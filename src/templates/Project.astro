@@ -7,29 +7,41 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "src/layouts/BaseLayout.astro";
 
 interface Props {
-  project: CollectionEntry<"project">
+  project: CollectionEntry<"project">;
 }
 const { project } = Astro.props;
 const { Content, headings } = await project.render();
-const hasHeadings = headings.length > 0
+const hasHeadings = headings.length > 0;
 ---
 
 <BaseLayout>
   <div class="project-intro grid grid-cols-2 mx-10 my-5 text-gray-100">
-    <ProjectIntro title={project.data.title} description={project.data.description} tags = {project.data.tags} link={project.data.link} />
+    <ProjectIntro
+      title={project.data.title}
+      description={project.data.description}
+      tags={project.data.tags}
+      link={project.data.link}
+    />
     <div class="flex justify-center align-center">
       <img class="rounded-2xl block" src={project.data.image} />
     </div>
   </div>
   <Divider />
-  <article class:list = {["max-w-5xl mx-auto my-5", {"grid grid-cols-4": hasHeadings}]}>
-    {Content && (
-      <article class:list={["prose dark:prose-invert", {"col-span-3": hasHeadings}]}>
-        <Content />
-      </article>
-    )}
-    {hasHeadings && (
-        <ProjectSidebar  headings={headings} class="col-span-1" />
-    )}
+  <article
+    class:list={["max-w-5xl mx-auto my-5", { "grid grid-cols-4": hasHeadings }]}
+  >
+    {
+      Content && (
+        <article
+          class:list={[
+            "prose dark:prose-invert",
+            { "col-span-3": hasHeadings },
+          ]}
+        >
+          <Content />
+        </article>
+      )
+    }
+    {hasHeadings && <ProjectSidebar headings={headings} class="col-span-1" />}
   </article>
 </BaseLayout>

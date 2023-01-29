@@ -1,6 +1,4 @@
 ---
-import "../styles/global.css";
-
 interface Props {
   title?: string;
   description?: string;
@@ -8,10 +6,11 @@ interface Props {
 
 const {
   title = "Projects of Qiushi Yan",
-  description = "A list of data science, web dev and software projects of Qiushi Yan",
+  description = "A list of data science and software projects of Qiushi Yan",
 } = Astro.props;
 ---
 
+<head>
 <meta charset="UTF-8" />
 <meta name="description" property="og:description" content={description} />
 <meta name="viewport" content="width=device-width" />
@@ -25,3 +24,4 @@ const {
   href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700;900&display=swap"
   rel="stylesheet"
 />
+</head>

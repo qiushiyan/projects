@@ -9,7 +9,7 @@ const projectCollection = defineCollection({
         date: z.date().transform((str) => new Date(str)),
         description: z.string(),
         tags: z.array(z.string()),
-        link: z.string()
+        link: z.string().url()
     })
 })
 

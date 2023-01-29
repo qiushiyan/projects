@@ -1,24 +1,21 @@
 ---
 import MainHead from "@components/MainHead.astro";
 import Nav from "@components/Nav.astro";
+import "../styles/global.css";
 
 interface Props {
   title?: string;
   description?: string;
 }
-const props = Astro.props
+const props = Astro.props;
 ---
 
 <html lang="en">
-    <head>
-        <MainHead {...props} />
-    </head>
-    <body class="bg-slate-900">
-        <Nav />
-        <main>
-            <slot />
-        </main>
-    </body>
+  <MainHead {...props} />
+  <body class="bg-slate-900">
+    <Nav />
+    <main>
+      <slot />
+    </main>
+  </body>
 </html>
-
-
