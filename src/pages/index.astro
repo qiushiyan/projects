@@ -25,7 +25,9 @@ const initialAllProjects: AllProjects  =  {
   }
 }
 
-const projects = (await getCollection("project")).reduce((acc, project) => {
+const rawProjects = (await getCollection("project")).sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+
+const projects = rawProjects.reduce((acc, project) => {
   const group = project.data.group
   acc[group]["projects"].push(project)
   return acc;
