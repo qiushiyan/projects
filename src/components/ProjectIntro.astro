@@ -19,7 +19,7 @@ const { title, description, link, tags } = Astro.props;
   {link && <ProjectLink src={link} />}
   {
     tags && (
-      <div class="tags flex justify-center align-center my-3">
+      <div class="tags flex justify-center align-center my-3 text-sm">
         {tags.map((tag: string) => (
           <Tag tag={tag}>{tag}</Tag>
         ))}
