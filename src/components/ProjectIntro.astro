@@ -1,30 +1,32 @@
 ---
-import { getEntryBySlug } from "astro:content";
 import ProjectLink from "./ProjectLink.astro";
 import Tag from "./Tag.astro";
 
 interface Props {
-  title: string;
-  description: string;
-  tags?: string[];
-  link?: string;
+    title: string;
+    description: string;
+    tags?: string[];
+    link?: string;
 }
 const { title, description, link, tags } = Astro.props;
 ---
 
 <div>
-  <h2 class="title font-extrabold text-2xl text-center">
-    {title}
-  </h2>
-  {link && <ProjectLink src={link} />}
-  {
-    tags && (
-      <div class="tags flex justify-center align-center my-3 text-sm">
-        {tags.map((tag: string) => (
-          <Tag tag={tag}>{tag}</Tag>
-        ))}
-      </div>
-    )
-  }
-  <h3 class="my-3 px-32 text-center">{description}</h3>
+    <h2
+        class="title font-extrabold text-2xl text-center"
+        transition:name={title}
+    >
+        {title}
+    </h2>
+    {link && <ProjectLink src={link} />}
+    {
+        tags && (
+            <div class="tags flex justify-center align-center my-3 text-sm">
+                {tags.map((tag: string) => (
+                    <Tag tag={tag}>{tag}</Tag>
+                ))}
+            </div>
+        )
+    }
+    <h3 class="my-3 px-32 text-center">{description}</h3>
 </div>

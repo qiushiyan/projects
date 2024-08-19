@@ -1,125 +1,126 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import Tag from "@components/Tag.astro";
 import type { Project } from "../types";
-import type { CollectionEntry } from "astro:content";
 interface Props {
-  project: CollectionEntry<"project">
+    project: CollectionEntry<"project">;
 }
 
 const { data, slug } = Astro.props.project;
 ---
 
 <div
-  class="card relative my-3 bg-slate-900 text-slate-900 rounded-lg border-xblue-800 border-solid border-2 shadow transition-transform hover:scale-105 hover:shadow-l"
+    class="card relative my-3 bg-slate-900 text-slate-900 rounded-lg border-xblue-800 border-solid border-2 shadow transition-transform hover:scale-105 hover:shadow-l"
 >
-  <div class="titleCard" style={`background-image:url(${data.image})`}>
-  </div>
-  <div class="descCard">
-    <h2
-      class="font-bold text-xl text-white mb-2"
-    >
-      {data.title}
-    </h2>
-    <p class="desc">{data.description}</p>
-    <div class="tags">
-      {data.tags.map((tag: string) => <Tag tag={tag} />)}
+    <div class="titleCard" style={`background-image:url(${data.image})`}></div>
+    <div class="descCard">
+        <h2
+            class="font-bold text-xl text-white mb-2"
+            transition:name={data.title}
+        >
+            {data.title}
+        </h2>
+        <p class="desc">{data.description}</p>
+        <div class="tags">
+            {data.tags.map((tag: string) => <Tag tag={tag} />)}
+        </div>
+        <a class="link" href={slug}>
+            <span class="linkInner">View</span>
+        </a>
     </div>
-    <a class="link" href={slug}>
-      <span class="linkInner">View</span>
-    </a>
-  </div>
 </div>
 
 <style>
-  .card {
-    position: relative;
-    color: var(--t-bg);
-    background: var(--t-fg);
-  }
+    .card {
+        position: relative;
+        color: var(--t-bg);
+        background: var(--t-fg);
+    }
 
-  .title {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    color: white;
-    flex-direction: column;
-    font-size: var(--f-u4);
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.0625em;
-  }
+    .title {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        color: white;
+        flex-direction: column;
+        font-size: var(--f-u4);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.0625em;
+    }
 
-  .titleCard {
-    position: relative;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 50% 100%;
-    padding-top: 37.5%;
-  }
+    .titleCard {
+        position: relative;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50% 100%;
+        padding-top: 37.5%;
+    }
 
-  .descCard {
-    padding: 1.5em;
-  }
+    .descCard {
+        padding: 1.5em;
+    }
 
-  .desc {
-    font-size: var(--f-u1);
-    line-height: 1.4;
-    margin-top: 0em;
-    margin-bottom: 1em;
-    color: #c4c4c4
-  }
+    .desc {
+        font-size: var(--f-u1);
+        line-height: 1.4;
+        margin-top: 0em;
+        margin-bottom: 1em;
+        color: #c4c4c4;
+    }
 
-  .link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--t-bg);
-    font-size: var(--f-u2);
-    font-weight: 700;
-    background: rgba(0, 0, 0, 0.25);
-    opacity: 0;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: opacity 150ms linear;
-  }
+    .link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--t-bg);
+        font-size: var(--f-u2);
+        font-weight: 700;
+        background: rgba(0, 0, 0, 0.25);
+        opacity: 0;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: opacity 150ms linear;
+    }
 
-  .link:focus,
-  .link:hover {
-    opacity: 1;
-  }
+    .link:focus,
+    .link:hover {
+        opacity: 1;
+    }
 
-  .link:focus,
-  .link:hover .linkInner {
-    transform: translateY(0);
-    border-color: rgba(255, 255, 255, 0.625);
-  }
+    .link:focus,
+    .link:hover .linkInner {
+        transform: translateY(0);
+        border-color: rgba(255, 255, 255, 0.625);
+    }
 
-  .linkInner {
-    padding: 0.375em 1em;
-    border: 2px solid rgba(255, 255, 255, 0);
-    transition: transform 300ms cubic-bezier(0, 0.4, 0.6, 1),
-      border-color 1s linear;
-    transform: translateY(25%);
-  }
+    .linkInner {
+        padding: 0.375em 1em;
+        border: 2px solid rgba(255, 255, 255, 0);
+        transition:
+            transform 300ms cubic-bezier(0, 0.4, 0.6, 1),
+            border-color 1s linear;
+        transform: translateY(25%);
+    }
 
-  .nav {
-    display: flex;
-    justify-content: flex-end;
-  }
+    .nav {
+        display: flex;
+        justify-content: flex-end;
+    }
 
-  .tags {
-    font-size: var(--f-d2);
-    text-transform: uppercase;
-  }
+    .tags {
+        font-size: var(--f-d2);
+        text-transform: uppercase;
+    }
 </style>

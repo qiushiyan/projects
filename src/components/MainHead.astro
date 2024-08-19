@@ -1,27 +1,30 @@
 ---
+import { ViewTransitions } from "astro:transitions";
+
 interface Props {
-  title?: string;
-  description?: string;
+    title?: string;
+    description?: string;
 }
 
 const {
-  title = "Projects of Qiushi Yan",
-  description = "A list of data science and software projects of Qiushi Yan",
+    title = "Projects of Qiushi Yan",
+    description = "A list of data science and software projects of Qiushi Yan",
 } = Astro.props;
 ---
 
 <head>
-<meta charset="UTF-8" />
-<meta name="description" property="og:description" content={description} />
-<meta name="viewport" content="width=device-width" />
-<meta name="generator" content={Astro.generator} />
-<title>{title}</title>
+    <meta charset="UTF-8" />
+    <meta name="description" property="og:description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
 
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700;900&display=swap"
-  rel="stylesheet"
-/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700;900&display=swap"
+        rel="stylesheet"
+    />
+    <ViewTransitions />
 </head>
